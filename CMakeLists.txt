@@ -11,13 +11,14 @@ find_package(OpenGL REQUIRED)
 
 add_executable(${PROJECT_NAME}
     src/main.cpp
+    src/core.cpp
 )
 
 include(FindPkgConfig)
 
 pkg_search_module(SDL2 REQUIRED sdl2)
 
-include_directories(${SDL2_INCLUDE_DIRS})
+include_directories(${SDL2_INCLUDE_DIRS} include)
 
 set(ALL_LIBS
     ${OPENGL_LIBRARY}
