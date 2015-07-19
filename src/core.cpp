@@ -1,3 +1,5 @@
+#include "core.h"
+
 // Include standard headers
 #include <stdio.h>
 #include <stdlib.h>
@@ -11,12 +13,12 @@
 #include <glm/glm.hpp>
 using namespace glm;
 
-void SDLDie(const char *msg) {
+static void SDLDie(const char *msg) {
     printf("%s: %s\n", msg, SDL_GetError());
     SDL_Quit();
 }
 
-void CheckSDLError(int line = -1) {
+static void CheckSDLError(int line = -1) {
 #ifndef NDEBUG
     const char *error = SDL_GetError();
     if (*error != '\0') {

@@ -1,20 +1,14 @@
 cmake_minimum_required(VERSION 2.6)
-project(run_rabbit_run)
+project(run_rabbit)
+set(LIB_NAME run_rabbit_run)
+
+include(FindPkgConfig)
 
 find_package(OpenGL REQUIRED)
 
-# find_program(SDL_CONFIG sdl2-config)
-# execute_process(COMMAND SDL_CONFIG --cflags
-#     OUTPUT_VARIABLE SDL_CFLAGS)
-# execute_process(COMMAND SDL_CONFIG --libs
-#     OUTPUT_VARIABLE SDL_LIBS)
-
-add_executable(${PROJECT_NAME}
-    src/main.cpp
+add_library(${LIB_NAME} SHARED
     src/core.cpp
 )
-
-include(FindPkgConfig)
 
 pkg_search_module(SDL2 REQUIRED sdl2)
 
@@ -25,6 +19,14 @@ set(ALL_LIBS
     ${SDL2_LIBRARIES}
 )
 
-target_link_libraries(${PROJECT_NAME}
+target_link_libraries(${LIB_NAME}
     ${ALL_LIBS}
 )
+
+# add_executable(${PROJECT_NAME}
+#     src/main.cpp
+# )
+
+# target_link_libraries(${PROJECT_NAME}
+#     ${LIB_NAME}
+# )
