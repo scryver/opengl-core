@@ -8,8 +8,10 @@
 
 #include <SDL.h>
 // Include GLM
+#define GLM_FORCE_RADIANS
 #include <glm/glm.hpp>
-using namespace glm;
+#include <glm/gtc/matrix_transform.hpp>
+// using namespace glm;
 
 #include "sdlwrapper.hpp"
 #include "object.hpp"
@@ -32,12 +34,30 @@ int RunCore(const char *shaderPath) {
     }
     printf("Supported OpenGL version: %s\n", glGetString(GL_VERSION));
 
+    // Enable depth test
+    glEnable(GL_DEPTH_TEST);
+    // Accept fragment if it closer to the camera than the former one
+    glDepthFunc(GL_LESS);
+
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+
     Object *object = new Object(shaderPath);
 
+    glm::mat4 Projection = glm::perspective(45.0f, 4.0f / 3.0f, 0.1f, 100.0f);
+
+    glm::mat4 View = glm::lookAt(
+        glm::vec3(4, 3, 3),
+        glm::vec3(0, 0, 0),
+        glm::vec3(0, 1, 0)
+    );
+
+    glm::mat4 Model = glm::mat4(1.0f);
+
+    glm::mat4 MVP = Projection * View * Model;
+
     while (!wrapper->MustQuit()) {
-        glClear(GL_COLOR_BUFFER_BIT);
-        object->Render();
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        object->Render(&MVP[0][0]);
         wrapper->Render();
     }
 
