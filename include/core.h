@@ -8,7 +8,7 @@ extern "C" {
 int RunCore(void);
 
 #ifdef __cplusplus
-}
+};
 #endif // __cplusplus
 
 #endif // __CORE_H__

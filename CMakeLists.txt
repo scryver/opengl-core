@@ -8,15 +8,22 @@ find_package(OpenGL REQUIRED)
 
 add_library(${LIB_NAME} SHARED
     src/core.cpp
+    src/shader.cpp
 )
 
 pkg_search_module(SDL2 REQUIRED sdl2)
+pkg_search_module(GLEW REQUIRED glew)
 
-include_directories(${SDL2_INCLUDE_DIRS} include)
+include_directories(
+    include
+    ${SDL2_INCLUDE_DIRS}
+    ${GLEW_INCLUDE_DIRS}
+)
 
 set(ALL_LIBS
     ${OPENGL_LIBRARY}
     ${SDL2_LIBRARIES}
+    ${GLEW_LIBRARIES}
 )
 
 target_link_libraries(${LIB_NAME}
