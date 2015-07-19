@@ -3,6 +3,7 @@
 // Include standard headers
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 #include <GL/glew.h>
 
@@ -22,6 +23,8 @@ int InitError(const char *name) {
 }
 
 int RunCore(const char *shaderPath) {
+    srand(time(NULL));
+
     SDLWrapper *wrapper = new SDLWrapper();
     if (wrapper->GetStatus() != SDLWrapper::INIT) {
         return InitError("SDL");
@@ -55,10 +58,18 @@ int RunCore(const char *shaderPath) {
 
     glm::mat4 MVP = Projection * View * Model;
 
+    int counter = 0;
+
     while (!wrapper->MustQuit()) {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         object->Render(&MVP[0][0]);
         wrapper->Render();
+
+        counter++;
+        if (counter >= 60) {
+            counter = 0;
+            object->ChangeColor();
+        }
     }
 
     delete object;

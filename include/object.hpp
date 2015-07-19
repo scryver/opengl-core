@@ -11,10 +11,11 @@ public:
     ~Object();
 
     void Render(const GLfloat *value);
+    void ChangeColor();
 
 private:
     static const GLfloat m_vertexBufferData[];
-    static const GLfloat m_colorBufferData[];
+    GLfloat m_colorBufferData[12 * 3 * 3];
 
     GLuint m_vertexArrayID;
     GLuint m_programID;
