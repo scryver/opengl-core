@@ -9,6 +9,8 @@ find_package(OpenGL REQUIRED)
 add_library(${LIB_NAME} SHARED
     src/core.cpp
     src/shader.cpp
+    src/sdlwrapper.cpp
+    src/object.cpp
 )
 
 pkg_search_module(SDL2 REQUIRED sdl2)
