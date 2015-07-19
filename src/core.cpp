@@ -58,10 +58,22 @@ int RunCore(void) {
 
     SDL_GL_SetSwapInterval(1);
 
-    glClearColor(1.0, 0.0, 0.0, 1.0);
-    glClear(GL_COLOR_BUFFER_BIT);
-    SDL_GL_SwapWindow(mainWindow);
-    SDL_Delay(5000);
+    SDL_Event event;
+    int quit = 0;
+
+    while (!quit) {
+        glClearColor(0.0, 0.0, 0.0, 1.0);
+        glClear(GL_COLOR_BUFFER_BIT);
+        SDL_GL_SwapWindow(mainWindow);
+        SDL_Delay(20);
+        while (SDL_PollEvent(&event)) {
+            if (event.type == SDL_QUIT ||
+                (event.type == SDL_KEYDOWN &&
+                 event.key.keysym.sym == SDLK_ESCAPE)) {
+                quit = 1;
+            }
+        }
+    }
 
     SDL_GL_DeleteContext(mainContext);
     SDL_DestroyWindow(mainWindow);
