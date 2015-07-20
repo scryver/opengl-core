@@ -8,6 +8,7 @@ include(FindPkgConfig)
 find_package(OpenGL REQUIRED)
 
 add_library(${LIB_NAME} SHARED
+    src/cwrapper.cpp
     src/core.cpp
     src/shader.cpp
     src/texture.cpp
