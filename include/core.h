@@ -5,7 +5,7 @@
 extern "C" {
 #endif // __cplusplus
 
-int RunCore(const char *shaderPath);
+int RunCore(const char *shaderPath, const char *imagePath);
 
 #ifdef __cplusplus
 };

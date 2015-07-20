@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 2.6)
 project(run_rabbit)
 set(LIB_NAME run_rabbit_run)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 include(FindPkgConfig)
 
@@ -9,6 +10,7 @@ find_package(OpenGL REQUIRED)
 add_library(${LIB_NAME} SHARED
     src/core.cpp
     src/shader.cpp
+    src/texture.cpp
     src/sdlwrapper.cpp
     src/object.cpp
 )

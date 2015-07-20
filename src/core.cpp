@@ -22,7 +22,7 @@ int InitError(const char *name) {
     return -1;
 }
 
-int RunCore(const char *shaderPath) {
+int RunCore(const char *shaderPath, const char *imagePath) {
     srand(time(NULL));
 
     SDLWrapper *wrapper = new SDLWrapper();
@@ -44,7 +44,7 @@ int RunCore(const char *shaderPath) {
 
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
-    Object *object = new Object(shaderPath);
+    Object *object = new Object(shaderPath, imagePath);
 
     glm::mat4 Projection = glm::perspective(45.0f, 4.0f / 3.0f, 0.1f, 100.0f);
 
@@ -68,7 +68,7 @@ int RunCore(const char *shaderPath) {
         counter++;
         if (counter >= 60) {
             counter = 0;
-            object->ChangeColor();
+            // object->ChangeColor();
         }
     }
 
